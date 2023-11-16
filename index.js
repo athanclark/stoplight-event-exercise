@@ -2,11 +2,24 @@
     'use strict';
 
     window.onload = function() {
-        for (const btn of document.querySelectorAll('#controls > div')) {
-            btn.addEventListener('click', function() {
+        const controls = document.getElementById('controls');
+        controls.addEventListener('click', function(e) {
+            if (e.target.className === 'button') {
+                const color = e.target.id.replace('Button', '');
+                const targetId = e.target.id.replace('Button', 'Light');
+                const lamp = document.getElementById(targetId);
+                lamp.classList.toggle(color);
+                console.log(`${color} bulb ${lamp.classList.contains(color) ? 'on' : 'off'}`);
+            }
+        });
+        for (const btn of controls.children) {
+            btn.addEventListener('mouseenter', function() {
                 let color = btn.id.replace('Button', '');
-                let targetId = btn.id.replace('Button', 'Light');
-                document.getElementById(targetId).classList.toggle(color);
+                console.log(`Entered ${color} button`);
+            });
+            btn.addEventListener('mouseleave', function() {
+                let color = btn.id.replace('Button', '');
+                console.log(`Left ${color} button`);
             });
         }
     };
